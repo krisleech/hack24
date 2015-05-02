@@ -1,4 +1,8 @@
 class Sms < ActiveRecord::Base
+  def processed!
+    update_column(:processed, true)
+  end
+
   def self.push(attributes)
     account.send_message(to: attributes[:to],
                          body: attributes[:message],

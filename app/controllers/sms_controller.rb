@@ -10,11 +10,10 @@ class SmsController < ApplicationController
       direction: 'in'
     }
 
-    Sms.create(sms)
+    command = ProcessSms.new
+    command.subscribe(SmsListener.new, async: true, prefix: 'on')
+    command.call(sms)
 
-    # TODO: do something
-
-    Rails.logger.debug sms.inspect
     render text: ""
   end
 end
