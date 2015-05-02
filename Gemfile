@@ -7,6 +7,7 @@ gem 'mysql2'
 gem 'omdb'
 
 gem 'esendex'
+gem 'faraday'
 
 gem 'pry-byebug'
 

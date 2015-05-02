@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   post '/sms' => 'sms#in'
-  resources :games
+  resources :games do
+    resources :cards
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

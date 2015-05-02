@@ -1,8 +1,35 @@
 module Import
   class Films
     def self.call
-      broadway
-      omdb
+      rotten
+      # broadway
+      # omdb
+    end
+
+    def self.rotten
+
+      film_titles.map do |title|
+
+        # http://api.rottentomatoes.com
+        conn = Faraday.new(:url => 'http://api.rottentomatoes.com') do |faraday|
+          faraday.request  :url_encoded             # form-encode POST params
+          faraday.response :logger                  # log requests to STDOUT
+          faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+        end
+
+        response = conn.get '/api/public/v1.0/movies.json?apikey=cy7a2ctphsg672sf39xuw79q&q=Toy+Story+3&page_limit=1'     # GET http://sushi.com/nigiri/sake.json
+        response.body
+
+        require 'pry'
+        binding.pry
+
+        film = Film.find_by_title(title) || Film.new(title: title)
+
+        binding.pry
+
+        sleep 1
+      end
+
     end
 
     def self.broadway
@@ -44,14 +71,13 @@ module Import
         end
       end
     end
-  end
 
-  def self.film_titles
-    @film_titles ||= Screening.all.map { |s| s.title }.uniq
-  end
+    def self.film_titles
+      @film_titles ||= Screening.all.map { |s| s.title }.uniq
+    end
 
-  def self.get_broadway_data(title)
-    Screening.all.find { |s| s.title == title }
+    def self.get_broadway_data(title)
+      Screening.all.find { |s| s.title == title }
+    end
   end
-end
 end
