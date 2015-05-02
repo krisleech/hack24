@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   post '/sms' => 'sms#in'
+
+  resources :players
+
   resources :games do
     resources :cards
   end

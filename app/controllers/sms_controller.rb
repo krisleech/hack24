@@ -12,6 +12,7 @@ class SmsController < ApplicationController
 
     command = ProcessSms.new
     command.subscribe(SmsListener.new, async: true, prefix: 'on')
+    command.subscribe(PlayerListener.new, async: true, prefix: 'on')
     command.call(sms)
 
     render text: ""

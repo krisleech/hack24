@@ -21,7 +21,9 @@ class CardsController < ApplicationController
                  card_2: answer[1],
                  match: correct_answer }
 
-        response << item
+        unless response.find { |i| i[:card_1] == answer[0] && i[:card_2] == answer[1] }
+          response << item
+        end
       else
         Rails.logger.debug "[show] Invalid answer: #{answer}"
       end
