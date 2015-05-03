@@ -24,7 +24,7 @@ class Answer
   private
 
   def valid_cards
-    @valid_cards ||= (1..11).map(&:to_s)
+    @valid_cards ||= (1..12).map(&:to_s)
   end
 end
 

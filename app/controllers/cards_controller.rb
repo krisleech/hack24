@@ -28,7 +28,7 @@ class CardsController < ApplicationController
         Rails.logger.debug "[show] Invalid answer: #{answer}"
       end
 
-      # sms.processed!
+      sms.processed! unless params[:skip_processing].present?
     end
 
 
@@ -42,6 +42,6 @@ class CardsController < ApplicationController
   end
 
   def grid_positions
-    (1..11).to_a.map(&:to_s)
+    (1..12).to_a.map(&:to_s)
   end
 end
